@@ -1,0 +1,150 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Background Styling */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #4CAF50, #2196F3);
+}
+
+/* Glassmorphism Effect */
+.login-box {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 30px;
+  width: 350px;
+  border-radius: 15px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.login-box h2 {
+  font-size: 24px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.login-box p {
+  font-size: 14px;
+  color: #eee;
+  margin-bottom: 20px;
+}
+
+.login-box span {
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Input Fields */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+/* Input Focus Effect */
+.input-group input:focus {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Login Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #f1f1f1;
+}
+
+/* Signup Link */
+.signup-link {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.signup-link a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Success Message */
+.success-message {
+  color: green;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Loading Message */
+.loading-message {
+  color: #007bff;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Disable Button When Logging In */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+  .login-box {
+    width: 90%;
+  }
+}

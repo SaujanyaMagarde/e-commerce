@@ -1,0 +1,7 @@
+#root {
+  flex-grow: 1;  /* Allows content inside #root to expand */
+  display: flex;
+  flex-direction: column; /* Ensures proper alignment */
+  justify-content: flex-start;
+  background-color: #f5f5f5;
+}

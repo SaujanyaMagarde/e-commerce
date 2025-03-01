@@ -1,0 +1,97 @@
+/* General Styles */
+.history-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.history-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.loading, .no-orders, .error {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error {
+  color: #ff0000;
+}
+
+/* Table Styles */
+.table-container {
+  overflow-x: auto;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.order-table th, .order-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #333;
+}
+
+.order-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.product-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .order-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .order-table th, .order-table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .product-image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .history-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-table th, .order-table td {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+
+  .product-image {
+    width: 30px;
+    height: 30px;
+  }
+
+  .history-title {
+    font-size: 1.2rem;
+  }
+}

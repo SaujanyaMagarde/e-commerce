@@ -1,0 +1,105 @@
+/* General Styles */
+.seller-home {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    padding: 20px;
+  }
+  
+  .header {
+    background: #4CAF50;
+    color: white;
+    padding: 40px 20px;
+    border-radius: 10px;
+  }
+  
+  .header h1 span {
+    font-weight: bold;
+  }
+  
+  .benefits {
+    margin: 40px 0;
+  }
+  
+  .benefits h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .benefits-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .benefit-card {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cta {
+    background: #f1f1f1;
+    padding: 30px 20px;
+    border-radius: 10px;
+  }
+  
+  .cta h2 {
+    margin-bottom: 10px;
+  }
+  
+  .buttons {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    margin: 10px;
+    display: inline-block;
+    font-weight: bold;
+  }
+  
+  .signup-btn {
+    background: #4CAF50;
+    color: white;
+  }
+  
+  .login-btn {
+    background: #2196F3;
+    color: white;
+  }
+  
+  .footer {
+    margin-top: 40px;
+    font-size: 14px;
+  }
+  
+  .footer a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .benefits-list {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .benefit-card {
+      width: 90%;
+    }
+  
+    .btn {
+      display: block;
+      width: 80%;
+      margin: 10px auto;
+    }
+  }
+  

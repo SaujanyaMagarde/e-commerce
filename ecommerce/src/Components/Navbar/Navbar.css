@@ -1,0 +1,146 @@
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #fff;
+    border-bottom: 2px solid #ddd;
+    position: relative;
+  }
+  
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .nav-logo img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    padding: 0;
+  }
+  
+  .nav-menu ul li {
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .nav-login-cart {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .nav-cart-count {
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 14px;
+    position: relative;
+    top: -10px;
+    right: 10px;
+  }
+  
+  /* User Dropdown */
+  .user-dropdown {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .user-dropdown img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+  }
+  
+  .dropdown-menu a, .dropdown-menu button {
+    text-decoration: none;
+    padding: 8px 12px;
+    display: block;
+    color: black;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu button {
+    color: red;
+  }
+  
+  .dropdown-menu a:hover, .dropdown-menu button:hover {
+    background: #f0f0f0;
+  }
+  
+  /* Mobile Menu */
+  .hamburger {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  hr{
+    height : 10px;
+    background: black;
+  }
+
+  @media (max-width: 768px) {
+    .hamburger {
+      display: block;
+    }
+  
+    .nav-menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      padding: 15px 0;
+    }
+  
+    .nav-menu.open {
+      display: flex;
+    }
+  
+    .nav-menu ul {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .nav-login-cart {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  

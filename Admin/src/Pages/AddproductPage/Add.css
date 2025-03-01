@@ -1,0 +1,14 @@
+.addmain{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (max-width: 550px) {
+    .addmain {
+      width: 100vw;
+      padding: 0;
+      min-height: 100vh;
+      display: block;
+    }
+}
