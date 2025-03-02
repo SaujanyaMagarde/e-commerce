@@ -1,97 +1,221 @@
-/* General Styles */
+/* Base styles */
 .history-container {
   padding: 20px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  font-family: Arial, sans-serif;
 }
 
 .history-title {
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   color: #333;
+  font-size: 28px;
 }
 
-.loading, .no-orders, .error {
+.loading, .error, .no-orders {
   text-align: center;
-  font-size: 1.2rem;
-  color: #666;
+  padding: 20px;
+  font-size: 18px;
 }
 
 .error {
-  color: #ff0000;
+  color: #d32f2f;
 }
 
-/* Table Styles */
-.table-container {
+.no-orders {
+  color: #666;
+  font-style: italic;
+}
+
+/* Desktop table styles */
+.desktop-view {
+  display: block;
   overflow-x: auto;
 }
 
 .order-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-.order-table th, .order-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .order-table th {
-  background-color: #f8f9fa;
-  font-weight: bold;
+  background-color: #f5f5f5;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
   color: #333;
+  position: sticky;
+  top: 0;
 }
 
-.order-table tbody tr:hover {
-  background-color: #f1f1f1;
+.order-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.order-table tr:hover {
+  background-color: #f9f9f9;
 }
 
 .product-image {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .order-table {
+/* Mobile card styles */
+.mobile-view {
+  display: none;
+}
+
+.order-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.order-card-header {
+  display: flex;
+  padding: 16px;
+  cursor: pointer;
+  position: relative;
+  align-items: center;
+}
+
+.order-card-image {
+  margin-right: 16px;
+}
+
+.order-card-image img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.order-card-basic-info {
+  flex: 1;
+}
+
+.order-card-basic-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.order-card-basic-info p {
+  margin: 4px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.order-card-basic-info span {
+  color: #333;
+  font-weight: 500;
+}
+
+.expand-icon {
+  font-size: 18px;
+  color: #666;
+}
+
+.order-card-details {
+  padding: 0 16px 16px;
+  border-top: 1px solid #eee;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.detail-row span:first-child {
+  font-weight: 500;
+  color: #666;
+}
+
+.detail-row span:last-child {
+  text-align: right;
+  color: #333;
+}
+
+/* Status colors */
+.status-completed {
+  color: #4caf50;
+}
+
+.status-pending {
+  color: #ff9800;
+}
+
+.status-cancelled {
+  color: #f44336;
+}
+
+.status-processing {
+  color: #2196f3;
+}
+
+/* Responsive behavior */
+@media screen and (max-width: 1200px) {
+  .order-table th, .order-table td {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  
+  .product-image {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .desktop-view {
+    display: none;
+  }
+  
+  .mobile-view {
     display: block;
-    overflow-x: auto;
-  }
-
-  .order-table th, .order-table td {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-
-  .product-image {
-    width: 40px;
-    height: 40px;
-  }
-
-  .history-title {
-    font-size: 1.5rem;
   }
 }
 
-@media (max-width: 480px) {
-  .order-table th, .order-table td {
-    padding: 6px;
-    font-size: 0.8rem;
+@media screen and (max-width: 576px) {
+  .history-container {
+    padding: 10px;
   }
-
-  .product-image {
-    width: 30px;
-    height: 30px;
-  }
-
+  
   .history-title {
-    font-size: 1.2rem;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .order-card-header {
+    flex-wrap: wrap;
+  }
+  
+  .order-card-image {
+    margin-right: 12px;
+  }
+  
+  .order-card-image img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .expand-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+  
+  .order-card-basic-info {
+    width: calc(100% - 80px);
   }
 }
