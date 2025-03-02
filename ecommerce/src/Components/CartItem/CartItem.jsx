@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import './CartItem.css'
 const Cart = () => {
   const [cart, setCart] = useState(null);
   const [error, setError] = useState(null);
