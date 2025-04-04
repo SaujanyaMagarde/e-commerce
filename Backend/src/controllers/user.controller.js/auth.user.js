@@ -304,7 +304,7 @@ const removeFromCart = asyncHandler(async (req, res) => {
 
 
 const getallProduct = asyncHandler(async (req, res) => {
-    const { search, category, minPrice, maxPrice, page = 1, limit = 100 } = req.query;
+    const { search, category, minPrice, maxPrice, page = 1, limit = 32} = req.query;
 
     // Initialize query object
     let query = {};

@@ -14,6 +14,7 @@ import Profile from './Components/Profile/Profile.jsx'
 import Cartuse from "./Pages/CartPage/Cart.jsx"
 import Orders from "./Components/order_History/orders.jsx"
 import Protected from "./Components/AuthLayout/AuthLayout.jsx"
+import Related from './Components/Related/Related.jsx'
 function App() {
   return (
     <>
@@ -30,6 +31,7 @@ function App() {
         <Route path='/profile' element={<Protected authentication={true}><Profile/></Protected>} />
         <Route path='/cart' element={<Protected authentication={true}><Cartuse/></Protected>} />
         <Route path='/orders' element={<Protected authentication={true}><Orders/></Protected>}/>
+        <Route path='/searchedProducts' element={<Related/>}/>
       </Routes>
       <Footer/>
       </BrowserRouter>

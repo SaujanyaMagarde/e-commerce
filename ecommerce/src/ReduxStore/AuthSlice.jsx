@@ -32,6 +32,8 @@ const AuthSlice = createSlice({
         status: false,
         userData: null,
         all_products: [],
+        cartItemCount :0,
+        reqProduct :[],
     },
     reducers: {
         login: (state, action) => {
@@ -42,7 +44,13 @@ const AuthSlice = createSlice({
             state.status = false;
             state.userData = null;
             state.all_products = [];
-        }
+        },
+        cartItemCount: (state, action) => {
+            state.cartItemCount = action.payload;
+        },
+        searchProduct : (state,action) =>{
+            state.reqProduct = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -57,5 +65,5 @@ const AuthSlice = createSlice({
     }
 });
 
-export const { login, logout ,} = AuthSlice.actions;
+export const { login, logout ,cartItemCount,searchProduct} = AuthSlice.actions;
 export default AuthSlice.reducer;

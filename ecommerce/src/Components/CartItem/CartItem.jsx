@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { cartItemCount } from "../../ReduxStore/AuthSlice";
 import './CartItem.css'
 const Cart = () => {
   const [cart, setCart] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const fetchCart = async () => {
     setIsLoading(true);
@@ -15,6 +18,8 @@ const Cart = () => {
       if (!res.ok) throw new Error("Failed to fetch cart");
       const data = await res.json();
       setCart(data.message.cart);
+      console.log(data.message.cart.items.length);
+      dispatch(cartItemCount(data.message.cart.items.length));
     } catch (error) {
       console.error(error.message);
       setError("Unable to load your cart. Please try again later.");

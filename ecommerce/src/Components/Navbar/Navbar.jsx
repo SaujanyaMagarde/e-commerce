@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import userdefault from '../../../../sample image/userdefault.png';
 import { logout } from '../../ReduxStore/AuthSlice.jsx';
 import { useNavigate } from 'react-router-dom';
-
+import {searchProduct} from '../../ReduxStore/AuthSlice.jsx';
 function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,11 +15,13 @@ function Navbar() {
   const [userImage, setUserImage] = useState(userdefault);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const auth = useSelector((state) => state.auth.status);
   const data = useSelector((state) => state.auth.userData);
-  const cartItemCount = 1;
+  const cartItemCount = useSelector((state) => state.auth.cartItemCount);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     if (auth && data?.avatar) {
@@ -51,57 +53,53 @@ function Navbar() {
     dispatch(logout());
     navigate('/');
   };
-  
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      // Close dropdown if clicked outside
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false);
-      }
-      
-      // Close mobile menu if clicked outside and not on hamburger button
-      if (
-        mobileMenuRef.current && 
-        !mobileMenuRef.current.contains(event.target) &&
-        !event.target.classList.contains('hamburger') &&
-        !event.target.parentElement.classList.contains('hamburger')
-      ) {
-        setMobileMenuOpen(false);
-      }
-    };
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    
-    // Close mobile menu on window resize to desktop size
-    const handleResize = () => {
-      if (window.innerWidth > 768 && mobileMenuOpen) {
-        setMobileMenuOpen(false);
-      }
-    };
-    
-    window.addEventListener('resize', handleResize);
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [mobileMenuOpen]);
 
-  // Close mobile menu when navigating
-  const handleNavigation = (selectedMenu) => {
-    setMenu(selectedMenu);
-    setMobileMenuOpen(false);
-  };
+  const handleSearch = async (query) => {
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_GET_ALL_PRODUCT}?search=${query}&page=1&limit=32`, 
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            }
+        );
+
+        const data = await response.json();
+        setProducts(data.message.products);
+        console.log("Search results:", data.message.products);
+        dispatch(searchProduct(data.message.products));
+        navigate('/searchedProducts')
+    } catch (error) {
+        console.error("Error fetching search results:", error);
+    }
+};
+
 
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <div className="navbar-container">
         <div className="nav-logo">
           <img src={logo} alt="logo" />
           <p>Shopify</p>
         </div>
 
-        {/* Hamburger Icon for Mobile */}
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} 
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch(e.target.value);
+              }
+            }}
+          />
+        </div>
+
         <div className="hamburger" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
           <span></span>
           <span></span>
@@ -110,48 +108,14 @@ function Navbar() {
 
         <div className={`nav-menu ${mobileMenuOpen ? 'open' : ''}`} ref={mobileMenuRef}>
           <ul>
-            <li onClick={() => handleNavigation('Shop')}>
-              <Link to="/">Shop</Link>
-              {menu === 'Shop' ? <hr /> : null}
-            </li>
-            <li onClick={() => handleNavigation('Men')}>
-              <Link to="/mens">Men</Link>
-              {menu === 'Men' ? <hr /> : null}
-            </li>
-            <li onClick={() => handleNavigation('Women')}>
-              <Link to="/womens">Women</Link>
-              {menu === 'Women' ? <hr /> : null}
-            </li>
-            <li onClick={() => handleNavigation('Kids')}>
-              <Link to="/kids">Kids</Link>
-              {menu === 'Kids' ? <hr /> : null}
-            </li>
-            
-            {/* Mobile-only login options */}
-            <div className="mobile-user-menu">
-              {auth ? (
-                <>
-                  <li>
-                    <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>Profile</Link>
-                  </li>
-                  <li>
-                    <Link to="/orders" onClick={() => setMobileMenuOpen(false)}>Order History</Link>
-                  </li>
-                  <li>
-                    <button onClick={handleLogout} className="logout-btn">Logout</button>
-                  </li>
-                </>
-              ) : (
-                <li>
-                  <Link to="/login" onClick={() => setMobileMenuOpen(false)}>Login</Link>
-                </li>
-              )}
-            </div>
+            <li><Link to="/">Shop</Link></li>
+            <li><Link to="/mens">Men</Link></li>
+            <li><Link to="/womens">Women</Link></li>
+            <li><Link to="/kids">Kids</Link></li>
           </ul>
         </div>
 
         <div className="nav-login-cart">
-          {/* User Image with Dropdown - Desktop */}
           <div className="user-dropdown" ref={dropdownRef}>
             <img
               src={userImage}
@@ -163,24 +127,23 @@ function Navbar() {
               <div className="dropdown-menu">
                 {auth ? (
                   <>
-                    <Link to="/profile" onClick={() => setDropdownOpen(false)}>Profile</Link>
-                    <Link to="/orders" onClick={() => setDropdownOpen(false)}>Order History</Link>
+                    <Link to="/profile">Profile</Link>
+                    <Link to="/orders">Order History</Link>
                     <button onClick={handleLogout}>Logout</button>
                   </>
                 ) : (
-                  <Link to="/login" onClick={() => setDropdownOpen(false)}>Login</Link>
+                  <Link to="/login">Login</Link>
                 )}
               </div>
             )}
           </div>
-
           <Link to="/cart" className="cart-icon-container">
             <img src={cart_icon} alt="Cart" />
             {cartItemCount > 0 && <div className="nav-cart-count">{cartItemCount}</div>}
           </Link>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
