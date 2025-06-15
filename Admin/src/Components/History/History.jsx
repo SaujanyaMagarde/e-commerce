@@ -12,7 +12,7 @@ const History = () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_SELL_HISTORY}`, {
           method: "POST",
-          credentials: "include", // Needed for authentication cookies
+          credentials: "include",
         });
 
         if (!response.ok) {
@@ -32,11 +32,7 @@ const History = () => {
   }, []);
 
   const toggleOrderDetails = (orderId) => {
-    if (expandedOrder === orderId) {
-      setExpandedOrder(null);
-    } else {
-      setExpandedOrder(orderId);
-    }
+    setExpandedOrder((prev) => (prev === orderId ? null : orderId));
   };
 
   if (loading) return <p className="loading">Loading orders...</p>;
@@ -71,7 +67,7 @@ const History = () => {
               </thead>
               <tbody>
                 {orders.map((order) => (
-                  <tr key={order._id}>
+                  <tr key={`desktop-${order._id}`}>
                     <td>{order._id}</td>
                     <td>{order.product_name}</td>
                     <td>
@@ -106,9 +102,9 @@ const History = () => {
           {/* Mobile view - Cards */}
           <div className="mobile-view">
             {orders.map((order) => (
-              <div key={order._id} className="order-card">
-                <div 
-                  className="order-card-header" 
+              <div key={`mobile-${order._id}`} className="order-card">
+                <div
+                  className="order-card-header"
                   onClick={() => toggleOrderDetails(order._id)}
                 >
                   <div className="order-card-image">
@@ -120,21 +116,34 @@ const History = () => {
                   </div>
                   <div className="order-card-basic-info">
                     <h3>{order.product_name}</h3>
-                    <p>Order ID: <span>{order._id}</span></p>
-                    <p>Status: <span className={`status-${order.status.toLowerCase()}`}>{order.status}</span></p>
-                    <p>Date: <span>
-                      {new Date(order.order_date).toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </span></p>
+                    <p>
+                      Order ID: <span>{order._id}</span>
+                    </p>
+                    <p>
+                      Status:{" "}
+                      <span className={`status-${order.status.toLowerCase()}`}>
+                        {order.status}
+                      </span>
+                    </p>
+                    <p>
+                      Date:{" "}
+                      <span>
+                        {new Date(order.order_date).toLocaleDateString(
+                          "en-GB",
+                          {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          }
+                        )}
+                      </span>
+                    </p>
                   </div>
                   <div className="expand-icon">
-                    {expandedOrder === order._id ? '▲' : '▼'}
+                    {expandedOrder === order._id ? "▲" : "▼"}
                   </div>
                 </div>
-                
+
                 {expandedOrder === order._id && (
                   <div className="order-card-details">
                     <div className="detail-row">
