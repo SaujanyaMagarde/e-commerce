@@ -5,7 +5,7 @@ const app = express()
 
 
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174','https://zify.vercel.app'];
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174','https://zify-alpha.vercel.app'];
 
 app.use(cors({
     origin: function (origin, callback) {
