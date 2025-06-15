@@ -66,8 +66,8 @@ const History = () => {
                 </tr>
               </thead>
               <tbody>
-                {orders.map((order) => (
-                  <tr key={`desktop-${order._id}`}>
+                {orders.map((order, index) => (
+                  <tr key={`desktop-${order._id}-${index}`}>
                     <td>{order._id}</td>
                     <td>{order.product_name}</td>
                     <td>
@@ -101,8 +101,8 @@ const History = () => {
 
           {/* Mobile view - Cards */}
           <div className="mobile-view">
-            {orders.map((order) => (
-              <div key={`mobile-${order._id}`} className="order-card">
+            {orders.map((order, index) => (
+              <div key={`mobile-${order._id}-${index}`} className="order-card">
                 <div
                   className="order-card-header"
                   onClick={() => toggleOrderDetails(order._id)}
