@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Breadcrum from '../Components/Breadcrum/Breadcrum';
-import ProductDisplay from '../Components/ProductDisplay/productDisplay';
+import ProductDisplay from '../Components/ProductDisplay/ProductDisplay';
 import DiscriptionBox from '../Components/DiscriptionBox/DiscriptionBox';
 import RelatedProduct from '../Components/RelatedProduct/RelatedProduct';
 import { useSelector,useDispatch } from 'react-redux';
