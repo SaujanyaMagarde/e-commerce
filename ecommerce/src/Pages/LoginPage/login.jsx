@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./login.css";
 import {useSelector,useDispatch} from 'react-redux'
 import {login,logout} from '../../ReduxStore/AuthSlice.jsx'
 import {Link} from 'react-router-dom'
