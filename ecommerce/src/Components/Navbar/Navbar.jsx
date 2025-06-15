@@ -4,7 +4,6 @@ import logo from '../Assets/logo.png';
 import cart_icon from '../Assets/cart_icon.png';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import userdefault from '../../../../sample image/userdefault.png';
 import { logout } from '../../ReduxStore/AuthSlice.jsx';
 import { useNavigate } from 'react-router-dom';
 import {searchProduct} from '../../ReduxStore/AuthSlice.jsx';
@@ -12,7 +11,7 @@ function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [menu, setMenu] = useState('Shop');
-  const [userImage, setUserImage] = useState(userdefault);
+  const [userImage, setUserImage] = useState('/sample_image/userdefault.png');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,7 +26,7 @@ function Navbar() {
     if (auth && data?.avatar) {
       setUserImage(data.avatar);
     } else {
-      setUserImage(userdefault);
+      setUserImage('/sample_image/userdefault.png');
     }
   }, [auth, data]);
 
