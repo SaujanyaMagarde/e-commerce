@@ -17,7 +17,7 @@ function App() {
 
   const checkAuthStatus = async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/v1/users/seller-getdetails", {
+      const res = await fetch(import.meta.env.VITE_SELLER_INFO, {
         method: "GET",
         credentials: "include", 
       });
