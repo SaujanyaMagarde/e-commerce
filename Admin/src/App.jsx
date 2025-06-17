@@ -17,7 +17,7 @@ function App() {
 
   const checkAuthStatus = async () => {
     try {
-      const res = await fetch(import.meta.env.VITE_SELLER_INFO, {
+      const res = await fetch(`${import.meta.env.VITE_SELLER_INFO}`, {
         method: "GET",
         credentials: "include", 
       });
