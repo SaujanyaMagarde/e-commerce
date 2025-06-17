@@ -31,11 +31,9 @@ const LoginPage = () => {
       console.log(data);
       dispatch(login({userData : data}))
       setLoading(false); // Stop loading
-
       if (!res.ok) {
         throw new Error(data.message || 'Something went wrong');
       }
-
       setSuccessMessage('Login successful! Redirecting...');
       setTimeout(() => {
         navigate('/dashboard'); // ✅ Navigate after success

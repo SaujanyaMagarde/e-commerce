@@ -13,37 +13,12 @@ import SellHistory from "./Pages/SellHistory/Sellhistory.jsx"
 import './index.css';
 
 function App() {
-  const dispatch = useDispatch();
-
-  const checkAuthStatus = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_SELLER_INFO}`, {
-        method: "GET",
-        credentials: "include", 
-      });
-
-      const data = await res.json();
-      if (data && data?.message?.seller?._id) {
-        dispatch(login({ userData: data.message}));
-      } else {
-        dispatch(logout());
-      }
-    } catch (err) {
-      dispatch(logout());
-    }
-  };
-
-  useEffect(() => {
-    checkAuthStatus();
-  }, []);
-  
-
   return (
     <>
     <Routes>
       <Route path='/' element={<HomePage/>}/>
-      <Route path='/login' element={<Protected authentication={false}><LoginPage/></Protected>} />
-      <Route path='/signup' element={<Protected authentication={false}><Signup/></Protected>} />
+      <Route path='/login' element={<LoginPage/>} />
+      <Route path='/signup' element={<Signup/>} />
       <Route path='/dashboard' element={<Protected authentication={true}><Admin/></Protected>} />
       <Route path='/addproduct' element={<Protected authentication={true}><Add/></Protected>}/>
       <Route path='/listproduct' element={<Protected authentication={true}><List/></Protected>}/>

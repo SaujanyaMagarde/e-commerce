@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import {login, logout} from '../../reduxStore/AuthSlice.jsx'
 export default function Protected({ children, authentication = true }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [loader, setLoader] = useState(true);
-    const authStatus = useSelector(state => state.auth.status);
 
     useEffect(() => {
-        if(authentication){
-            if(!authStatus){
-                navigate('/');
-            }
-        }
-        setLoader(false);
-    }, [authStatus, navigate, authentication]);
+        const checkUserProfile = async () => {
+            try {
+                const res = await fetch(`${import.meta.env.VITE_SELLER_INFO}`, {
+                    method: "GET",
+                    credentials: "include",
+                });
+                const data = await res.json();
+                if (data && data?.message?.seller?._id){
+                    setLoader(false);
+                } else {
+                    dispatch(logout());
+                    navigate('/');
+                }
+                } catch (err) {
+                    dispatch(logout());
+                    navigate('/');
+                }
+        };
+        checkUserProfile();
+    }, []);
 
     // Show loader while checking authentication status
     if (loader) {
