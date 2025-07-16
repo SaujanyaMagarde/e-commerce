@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Signup.css';
 import { useNavigate } from 'react-router-dom';
+import {login} from "../../reduxStore/AuthSlice.jsx"
+import {useDispatch} from 'react-redux'
 const Signup = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     fullname: '',
     email: '',
@@ -47,7 +50,7 @@ const Signup = () => {
 
       const data = await res.json();
       console.log('Response:', data);
-
+      dispatch(login({userData : data}))
       navigate('/dashboard')
     } catch (error) {
       console.error('Error:', error);

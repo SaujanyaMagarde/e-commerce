@@ -294,7 +294,8 @@ const getCurrentSeller = asyncHandler(async (req,res) =>{
         console.log("user logged problem")
         throw new ApiError(404,"user logged out");
     }
-    const seller = req.seller;
+    const seller = req?.seller
+    console.log(seller)
     res.status(200).json(
         new ApiResponse(200,"user data retrived",{
             seller

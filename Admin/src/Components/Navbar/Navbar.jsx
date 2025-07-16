@@ -31,10 +31,8 @@ function Navbar() {
       if (!res.ok) {
         throw new Error('Logout failed');
       }
-  
       console.log("Logout successful");
       dispatch(logout()); // Dispatch logout action
-      
       navigate('/login'); 
     } catch (error) {
       console.error("Logout error:", error);
