@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { cartItemCount } from "../../ReduxStore/AuthSlice";
 import './CartItem.css'
+import {useNavigate} from "react-router-dom";
+import {loadStripe} from '@stripe/stripe-js';
+
 const Cart = () => {
   const [cart, setCart] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const fetchCart = async () => {
     setIsLoading(true);
@@ -78,26 +83,46 @@ const Cart = () => {
     }
   };
 
-  const handleCheckout = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_PLACE_ORDER}`, {
-        method: "GET",
-        credentials: "include",
-      });
+  const handleCheckout = async (cartItems) => {
+    console.log("1");
+  const stripe = await loadStripe(
+    "pk_test_51S1og0HXuoGBoDECMqvBnxaNqYgs110YyYnwfVSONWxpE63XKOxOL3dgMpBERNUiHdHiRJ18ZSM1kORNDeDBFCS300Pv4ykaby"
+  );
 
-      if (!res.ok) {
-        throw new Error("Failed to place the order. Please try again.");
-      }
+  console.log("2");
 
-      const data = await res.json();
-      alert("Order placed successfully!");
-      await fetchCart();
-    } catch (error) {
-      console.error("Error placing order:", error);
-      setError("Failed to place order. Please try again.");
-      alert("Failed to place order. Please try again.");
+  try {
+    // Call backend to create checkout session
+    const res = await fetch(`${import.meta.env.VITE_STRIPE_URL}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", // keep cookies/JWT if using auth
+      body: JSON.stringify({ items: cartItems }), // send cart data
+    });
+
+    console.log("3");
+
+    const data = await res.json();
+
+    console.log(data);
+
+    if (!res.ok) {
+      throw new Error(data.error || "Failed to create checkout session");
     }
-  };
+
+    // Redirect to Stripe checkout page
+    const result = await stripe.redirectToCheckout({
+      sessionId: data.id,
+    });
+
+    if (result.error) {
+      alert(result.error.message);
+    }
+  } catch (error) {
+    console.error("Checkout error:", error);
+    alert("Something went wrong with checkout");
+  }
+};
 
   if (isLoading) {
     return <div className="cart-loading">Loading your cart...</div>;
@@ -169,7 +194,7 @@ const Cart = () => {
                 </div>
                 <button 
                   className="checkout-button" 
-                  onClick={handleCheckout}
+                  onClick={() => handleCheckout(cart.items)}
                 >
                   Proceed to Checkout
                 </button>

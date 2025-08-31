@@ -519,7 +519,7 @@ const placeOrder = asyncHandler(async (req, res) => {
         products: orderData.products,
         total_price: orderData.total_price,
         status: "pending",
-        payment_status: "pending",
+        payment_status: "completed",
     });
 
     await Cart.findOneAndDelete({ user: userID });
